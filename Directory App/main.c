@@ -18,7 +18,7 @@ int main(void) {
     scanf("%s", directory[numberOfOnes][x]);
     x++;
     if (directory[numberOfOnes][x - 1][0] ==
-        48) { // Kullanıcı 0 girdiyse rehbere ekleme işlemini durdurur.
+        48) { // Stop the adding action when user enter 0.
       printf("There are no people left to add to the directory...\n");
       directory[numberOfOnes][x][0] = NULL;
       break;
@@ -32,21 +32,18 @@ int main(void) {
     numberOfOnes++;
   }
   if (numberOfOnes == 26) {
-    printf("The number of people has reached 25! Sorry, you can't add another "
-           "person...\n");
+    printf("The number of people has reached 25! Sorry, you can't add another person...\n");
   }
 
-  printf("Sort your directory according to what (name: 0, surname: 1, number: "
-         "2) : ");
+  printf("Sort your directory according to what (name: 0, surname: 1, number: 2) : ");
   //
-  while (1) { // Kullanıcı geçersiz işlem girerse yeniden işlem girebilsin diye
-              // döngüye alır.
+  while (1) { //In order to user try aging if user enter invalid action.
     scanf("%d", &sort);
     if (sort == 0) {
       char tmp1[10];
       char tmp2[10];
       char tmp3[10];
-      //İsme göre kabarcık sıralama
+      //Alphabetic bubble sort according to name
       for (int i = 0; i < numberOfOnes; i++) {
         for (int j = 0; j < numberOfOnes - 1; j++) {
           if (strcmp(directory[j][0], directory[i][0]) > 0) {
@@ -67,7 +64,7 @@ int main(void) {
       char tmp1[10];
       char tmp2[10];
       char tmp3[10];
-      // Soyisme göre kabarcık sıralama
+      // Alphabetic bubble sort according to last name
       for (int i = 0; i < numberOfOnes; i++) {
         for (int j = 0; j < numberOfOnes - 1; j++) {
           if (strcmp(directory[j][1], directory[i][1]) > 0) {
@@ -88,7 +85,7 @@ int main(void) {
       char tmp1[10];
       char tmp2[10];
       char tmp3[10];
-      // Numaraya göre kabarcık sıralama.
+      // Alphabetic bubble sort according to number
       for (int i = 0; i < numberOfOnes; i++) {
         for (int j = 0; j < numberOfOnes - 1; j++) {
           if (strcmp(directory[j][2], directory[i][2]) > 0) {
@@ -111,22 +108,21 @@ int main(void) {
     }
   }
   printf("Name   Last Name   Number\n");
-  // Rehberi yazdırır.
+  // Printing directory.
   for (int i = 0; i < numberOfOnes; i++) {
     printf("| %s |", directory[i][0]);
     printf("| %s |", directory[i][1]);
     printf("| %s |\n", directory[i][2]);
   }
-  while (1) { // Kullanıcı istediği kadar işlem yapabilmesi için döngüye alır.
+  while (1) { // This loop for user take action as much as user want.
     int action;
-    printf("Add a new registry : 1\nReaching a registry : 2\nChancing data : "
-           "3\nDeleting Registry : 4\nExit : 5\n");
+    printf("Add a new registry : 1\nReaching a registry : 2\nChancing data : 3\nDeleting Registry : 4\nExit : 5\n");
     printf("The action you want to take : ");
     scanf("%d", &action);
-    if (action == 1) {          // Kullanıcı yeni kişi eklemek istiyor.
-      if (numberOfOnes <= 25) { // Kişi sayısının 25 dan küçük olduğuna bakıyor.
-                                // Büyükse yeni kişi eklemez
-        // Rehbere yeni kişi ekler.
+    if (action == 1) {          // User adding a new person.
+      if (numberOfOnes <= 25) { // Looking if number of people is lower t.
+                                
+        // Adding new person.
         printf("Name of one who is you want to add : ");
         scanf("%s", directory[numberOfOnes][0]);
         printf("Last name of one who is you want to add : ");
@@ -149,7 +145,7 @@ int main(void) {
           int whichPerson;
           printf("Kayıttaki name : ");
           scanf("%s", name);
-          //İsim bilgisi ile rehberdeki kişiyi bulur.
+          //Find the person by name data.
           for (int i = 0; i < numberOfOnes; i++) {
             if (strcmp(name, directory[i][0]) == 0) {
               printf("The person you calles is found : \n");
@@ -184,14 +180,14 @@ int main(void) {
               printf("| %s | | %s | | %s |\n", directory[whichPerson][0],
                      directory[whichPerson][1], directory[whichPerson][2]);
             } else if (action3 == 4) {
-              // Kişiyi siler ve sıralamyı yeniden inşa eder.
+              // It is delete the person and sort the array again.
               for (int i = whichPerson; i < numberOfOnes - 1; i++) {
                 strcpy(directory[i][0], directory[i + 1][0]);
                 strcpy(directory[i][1], directory[i + 1][1]);
                 strcpy(directory[i][2], directory[i + 1][2]);
               }
-              // Bir kişi silindiği için en sonda aynı kişiden iki tane olur.
-              // 2'nci yi de siler.
+              // There is 2 same person at the last because of the sorting action.
+              // It is delete second one.
               for (int i = 0; i < sizeof(directory[numberOfOnes][0]); i++) {
                 directory[numberOfOnes - 1][0][i] = NULL;
               }
@@ -337,7 +333,7 @@ int main(void) {
     } else {
       printf("Please enter a valid action!...\n");
     }
-    // Rehberi yazdırır.
+    // Printing the directory.
     printf("\n");
     for (int i = 0; i < numberOfOnes; i++) {
       printf("| %s |", directory[i][0]);
